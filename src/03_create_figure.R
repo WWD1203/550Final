@@ -1,6 +1,9 @@
 # src/03_create_figure.R
 # Create the plots
+library(tidyverse)
+library(here)
 
+data <- readRDS(here("data", "processed_data.rds"))
 # 1. Gender distribution (Bar plot)
 plot_gender <- ggplot(data, aes(x = Gender, fill = Gender)) +
   geom_bar() +
@@ -24,3 +27,7 @@ plot_diet <- ggplot(data, aes(x = Diet_Type)) +
        x = "Diet Type", 
        y = "Count") +
   theme_minimal()
+
+ggsave(here("output", "figure_1_gender.png"), plot = plot_gender, width = 6, height = 4)
+ggsave(here("output", "figure_2_age.png"), plot = plot_age, width = 6, height = 4)
+ggsave(here("output", "figure_3_diet.png"), plot = plot_diet, width = 6, height = 4)

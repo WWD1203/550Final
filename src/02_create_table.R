@@ -1,5 +1,12 @@
 # src/02_create_table.R
 
+# Load required libraries
+library(here)
+library(tidyverse)
+
+# Load the processed data file (assuming it was created by 01_prep_data.R)
+data <- readRDS(here("data", "processed_data.rds"))
+
 # Summary statistics for numeric variables
 num_summary <- data %>%
   summarise(

@@ -3,10 +3,11 @@
 # 1. Load Required Libraries
 library(tidyverse)
 library(knitr)
+library(here)
 
 # 2. Load Data
 # Note: Path is relative to the project root directory where 'make' is executed.
-data <- read_csv("data/Mental_Health_Lifestyle_Dataset.csv")
+data <- read_csv(here("data", "Mental_Health_Lifestyle_Dataset.csv"))
 
 # 3. Data Cleaning / Renaming (Crucial for handling spaces in column names)
 data <- data %>%
@@ -22,3 +23,6 @@ data <- data %>%
     Happiness_Score = `Happiness Score`
     # Note: 'Country', 'Age', 'Gender' are already clean
   )
+
+
+saveRDS(data, file = here("data", "processed_data.rds"))

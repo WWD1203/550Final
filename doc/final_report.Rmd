@@ -1,0 +1,89 @@
+---
+title: "Mental Health and Lifestyle Analysis Report"
+author: "Wenduan Wang"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: bootstrap
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+# Load required libraries
+library(here)
+library(tidyverse)
+library(knitr)
+```
+
+1. Data Preparation and Cleaning
+1.1 Execute Data Preparation Script
+This step runs src/01_prep_data.R, which loads the raw data, renames columns, and saves the cleaned data as processed_data.rds for subsequent scripts.
+```{r}
+source(here("src", "01_prep_data.R"))
+```
+
+2. Descriptive Statistical Analysis
+2.1 Execute Table Data Generation Script
+This step runs src/02_create_table.R. It reads the processed data and creates three data frame objects: num_summary, stress_dist, and mental_dist.
+```{r}
+source(here("src", "02_create_table.R"))
+```
+2.2 Results Display: Summary Tables
+Summary Statistics of Numeric Variables
+```{r}
+# Use knitr::kable to format the R data frame into a clean HTML table
+kable(
+  num_summary, 
+  caption = "Table 1: Summary Statistics of Numeric Variables (Age, Sleep, Work Hours)",
+  digits = 2 # Set number of decimal places for numeric columns
+)
+```
+
+Stress Level Distribution
+```{r}
+# Format the stress level frequency table
+kable(
+  stress_dist, 
+  caption = "Table 2: Distribution of Reported Stress Levels",
+  col.names = c("Stress Level", "Count (n)", "Percentage (%)") # Rename column headers for clarity
+)
+```
+
+Mental Health Condition Distribution
+```{r}
+# Format the mental health condition frequency table
+kable(
+  mental_dist, 
+  caption = "Table 3: Distribution of Reported Mental Health Conditions",
+  col.names = c("Mental Health Condition", "Count (n)", "Percentage (%)")
+)
+```
+
+3. Data Visualization
+3.1 Execute Figure Generation Script
+This step runs src/03_create_figure.R, which creates and saves the plot files (figure_1_gender.png, etc.) to the output/ folder.
+```{r}
+source(here("src", "03_create_figure.R"))
+```
+
+3.2 Results Display: Figures
+The plots were generated and saved by the external script (03_create_figure.R). We use include_graphics to embed them here.
+Figure 1: Gender Distribution
+```{r}
+# Embed the saved image file
+knitr::include_graphics(here("output", "figure_1_gender.png"))
+```
+
+Figure 2: Age Distribution
+```{r}
+knitr::include_graphics(here("output", "figure_2_age.png"))
+```
+
+Figure 3: Diet Type Distribution
+```{r}
+knitr::include_graphics(here("output", "figure_3_diet.png"))
+```
+
+
