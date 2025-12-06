@@ -43,3 +43,27 @@ clean:
 
 # Phony targets do not correspond to actual files
 .PHONY: all install clean
+
+
+# Docker settings
+DOCKER_IMAGE = wwd1203/550final
+DOCKER_TAG = latest
+
+docker_build:
+	@echo "Building Docker image: $(DOCKER_IMAGE):$(DOCKER_TAG)"
+	docker build -t $(DOCKER_IMAGE):$(DOCKER_TAG) .
+	@echo "Docker image built successfully!"
+
+docker_run:
+	@echo "Running Docker container to generate report..."
+	@mkdir -p report
+	docker run --rm -v /$$(pwd)/report:/project/output $(DOCKER_IMAGE):$(DOCKER_TAG)
+	@echo "Report generated! Check the 'report' directory."
+
+docker_run_unix:
+	@echo "Running Docker container to generate report..."
+	@mkdir -p report
+	docker run --rm -v $$(pwd)/report:/project/output $(DOCKER_IMAGE):$(DOCKER_TAG)
+	@echo "Report generated! Check the 'report' directory."
+
+.PHONY: docker_build docker_run docker_run_unix

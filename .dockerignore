@@ -1,0 +1,33 @@
+#  .dockerignore 
+cat > .dockerignore << 'EOF'
+# .dockerignore - Exclude files from Docker build context
+
+# Git
+.git/
+.gitignore
+
+# R history and environment
+.Rhistory
+.RData
+.Ruserdata
+
+# Output files (we'll generate these in the container)
+output/
+report/
+
+# renv cache (will be restored from renv.lock)
+renv/library/
+renv/local/
+renv/cellar/
+renv/lock/
+renv/python/
+renv/sandbox/
+renv/staging/
+
+# Keep only essential renv files
+!renv/activate.R
+!renv/settings.json
+
+# System files
+.DS_Store
+Thumbs.db
