@@ -1,0 +1,22 @@
+# R files
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+
+# Generated output files (should be regenerated via Docker)
+output/
+report/
+
+# renv library (restored from renv.lock)
+renv/library/
+renv/local/
+renv/staging/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.log
+*.tmp
